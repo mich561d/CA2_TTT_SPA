@@ -1,9 +1,8 @@
-# Simple template to create SPA's with plain JavaScript using Babel, Webpack and Webpacks devserver
+# Course Assignment 2 - The Turtle Troopers : API
+[Link to The Turtle Troopers group page](https://jesper3005.github.io/TTTAgenda/)
 
-## Getting started
+[Link to SPA](#)
 
-- If not alredy done, install nodejs and a sufficient JavaScript Editor (we suggest vs-code)
-- Clone this project
-- In the folder it was cloned into, type npm install
-- In the folder it was cloned into (if you have installed vs-code) type "code ." to open vs-code
-- In the folder it was cloned into type npm start, to run the project via Webpacks development server
+[Link to API](#)
+
+[Link to API Github](https://github.com/mich561d/CA2_TTT_API)
