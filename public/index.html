@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="style.css" rel="stylesheet" />
-  </head>
 
-  <body>
-    <div id="root"></div>
-    <script src="bundle.js"></script>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="style.css" rel="stylesheet" />
+</head>
+
+<body>
+  <header>
     <label>What do you wanna find?</label>
-    <select id="select" class="mdb-select md-form">
-      <option value="company">Company</option>
-      <option value="phone">Phone</option>
-      <option value="person">Person</option>
-      <option value="hobby">Hobby</option>
-      <option value="city">City</option>
-    </select>
-
+    <select id="select" class="mdb-select md-form"></select>
     <lable>How do you wanna find it?</lable>
-    <select id="how"> </select>
-    <input id="input" />
-  </body>
+    <select id="how" class="mdb-select md-form"></select>
+    <span id="input"><input type="text" disabled="disabled"></span>
+    <button id="fetchButton" type="button">get data</button>
+  </header>
+
+  <main id="data">
+    Well... this is awkward.... xDDDDD
+  </main>
+
+  <footer>
+    &copy;2019 Created by The Turtle Troopers
+  </footer>
+
+  <script src="bundle.js"></script>
+</body>
+
 </html>
