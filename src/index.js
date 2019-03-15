@@ -1,11 +1,14 @@
 import "bootstrap/dist/css/bootstrap.css";
+import { debug } from "util";
 
 const url = "https://dueinator.dk/CA2/api/";
+const urlZipCodes = url + "City/AllZips";
+const zipCodesFetched = fetchZipCodes();
 const whatChoices = ["Company", "Person", "Hobby", "City"];
 const companyChoices = ["Phone", "CVR", "Employee Count", "Email", "All", "City", "Address", "Market Value"];
 const personChoices = ["Phone", "Hobby", "City", "Email", "All", "Address"];
 const hobbyChoices = ["Name", "All"]; // TODO: All return entity not DTO
-const cityChoices = ["Zip", "All Zips", "All Cities"];
+const cityChoices = ["Zip", "All Cities"];
 var what = document.getElementById("select");
 var how = document.getElementById("how");
 var input = document.getElementById("input");
@@ -53,47 +56,86 @@ function getInputFieldHTML() {
     var selectedHow = how.value;
     switch (selectedHow) {
         case "Phone":
-            return "<input type=\"text\">";
+            return "<input id=\"inputField\" type=\"text\">";
         case "CVR":
-            return "<input type=\"number\">";
+            return "<input id=\"inputField\" type=\"number\">";
         case "Employee Count":
-            return "<input type=\"number\">";
+            return "<input id=\"inputField\" type=\"number\">";
         case "Email":
-            return "<input type=\"email\">";
+            return "<input id=\"inputField\" type=\"email\">";
         case "All":
             return "<input type=\"text\" disabled=\"disabled\">";
         case "City":
-            return "<input type=\"number\">";
+            return "<input id=\"inputField\" type=\"number\">";
         case "Address":
-            return "<input type=\"text\">";
+            return "<input id=\"inputField\" type=\"text\">";
         case "Market Value":
-            return "<input type=\"number\">";
+            return "<input id=\"inputField\" type=\"number\">";
         case "Hobby":
-            return "<input type=\"text\">";
+            return "<input id=\"inputField\" type=\"text\">";
         case "Name":
-            return "<input type=\"text\">";
+            return "<input id=\"inputField\" type=\"text\">";
         case "Zip":
-            return "<input type=\"number\">";
-        case "All Zips":
-            return "<input type=\"text\" disabled=\"disabled\">";
+            return "<select id=\"inputField\" class=\"mdb-select md-form\">" + zipCodesFetched + "</select>";
         case "All Cities":
-            return "<input type=\"text\" disabled=\"disabled\">";
+            return "<inpu type=\"text\" disabled=\"disabled\">";
         default:
             alert("Something went wrong, please try again or reload page (F5)");
             return "<input type=\"text\" disabled=\"disabled\">";
     }
 }
 
+function fetchZipCodes() {
+    var html = "";
+    fetch(urlZipCodes).then(res => res.json()).then(json => html += "<option value=\"" + json.zipCode + "\">" + json.zipCode + "</option>");
+    return html;
+}
+
 function fetchData() {
     var whatValue = what.value;
     var howValue = how.value.replace(" ", "");
-    var inputValue = input.value;
-    alert("What:" + whatValue + "| How: " + howValue + "| Input: " + inputValue);
+    var inputValue = document.getElementById("inputField");
     var newUrl = "";
-    if (inputValue === undefined) {
+    if (inputValue === null) {
         newUrl = url + whatValue + "/" + howValue;
     } else {
-        newUrl = url + whatValue + "/" + howValue + "/" + inputValue;
+        newUrl = url + whatValue + "/" + howValue + "/" + inputValue.value;
     }
-    fetch(newUrl).then(res => res.json()).then(json => dataDiv.innerHTML = json);
+    fetch(newUrl).then(res => res.json()).then(json => dataDiv.innerHTML = jsonToHTML(json, whatValue));
+}
+
+function jsonToHTML(json, whatValue) {
+    switch (whatValue) {
+        case "Company":
+            return companyToHTML(json);
+        case "Person":
+            return personToHTML(json);
+        case "Hobby":
+            return hobbyToHTML(json);
+        case "City":
+            return cityToHTML(json);
+        default:
+            alert("Something went wrong, please try again or reload page (F5)");
+            break;
+    }
+}
+
+function companyToHTML(json) {
+    var html = json;
+    return html;
+}
+
+function personToHTML(json) {
+    var html = json;
+    return html;
+}
+
+function hobbyToHTML(json) {
+    var html = json;
+    return html;
+}
+
+function cityToHTML(json) {
+    var html = json.map(city => "<li>City: " + city.city + " - Zip: " + city.zipCode + "</li>").join("");
+    return "<ul>" + html + "</ul>";
 }
