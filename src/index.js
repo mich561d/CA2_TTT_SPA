@@ -133,7 +133,7 @@ function companyToHTML(json) {
         + " - Description: " + company.description
         + " - Number of employees: " + company.numEmployees
         + " - Market value: " + company.marketValue   
-        +"</li>").join("");
+        + "</li>").join("");
     return "<ul>" + html + "</ul>";
 }
 
@@ -220,14 +220,15 @@ function postMethod() {
     var method = '';
     const chosenValue = what1.value;
     if (choice.value === "Create") {
-        data = createData();
+        data = createData;
         method = "POST"
         var alertMessage = "Entity has been created"
     } else {
-        data = updateData();
+        data = updateData;
         method = 'PUT'
         var alertMessage = "Entity has been updated"
     }
+    console.log(data);
     fetch(url.concat(chosenValue), {
         method: method,
         headers: { 'Content-Type': 'application/json; charset=utf-8' },
@@ -313,7 +314,7 @@ btnDelete.addEventListener('click', deleteEntity);
 function deleteEntity() {
     const selectedID = deleteID.value;
     const entityToDelete = selectDelete.value;
-    fetch(url + entityToDelete + "/delete/id=" + selectedID, { method: 'DELETE' }).then(res => res.json()).then((data) => {
+    fetch(url + entityToDelete + "/Delete/" + selectedID, { method: 'DELETE' }).then(res => res.json()).then((data) => {
         console.log("Entity that has been deleted: " + data);
         alert("Entity has been deleted");
     }).catch(error => console.log(error));
