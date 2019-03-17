@@ -127,7 +127,7 @@ function jsonToHTML(json, whatValue) {
 }
 
 function companyToHTML(json) {
-    var html = json.map(company => "<li>First Name: " + company.name 
+    var html = json.map(company => "<li>Name: " + company.name 
         + " - CVR: " + company.cvr
         + " - Email: " + company.email
         + " - Description: " + company.description
