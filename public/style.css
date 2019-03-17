@@ -28,3 +28,11 @@ footer {
    background: #252E39;
    padding: 2rem 1rem;
 }
+
+#deleteEntity {
+   float: right;
+}
+
+.form-group {
+   align-items: center;
+}

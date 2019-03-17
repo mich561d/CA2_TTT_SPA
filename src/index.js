@@ -126,13 +126,15 @@ function jsonToHTML(json, whatValue) {
     }
 }
 
+
 function companyToHTML(json) {
     var html = json.map(company => "<li>Name: " + company.name 
         + " - CVR: " + company.cvr
         + " - Email: " + company.email
         + " - Description: " + company.description
         + " - Number of employees: " + company.numEmployees
-        + " - Market value: " + company.marketValue   
+        + " - Market value: " + company.marketValue
+        + " - ID: " + company.id   
         + "</li>").join("");
     return "<ul>" + html + "</ul>";
 }
@@ -143,7 +145,7 @@ function personToHTML(json) {
 }
 
 function hobbyToHTML(json) {
-    var html = json.map(hobby => "<li>Hobby: " + hobby.name + " - Description: " + hobby.description + "</li>").join("");
+    var html = json.map(hobby => "<li>Hobby: " + hobby.name + " - Description: " + hobby.description + " - ID: " + hobby.id + "</li>").join("");
     return "<ul>" + html + "</ul>";
 }
 
@@ -171,11 +173,11 @@ function setInputField2() {
     input2.innerHTML = createInputFields();
 }
 
-// fjern return og udkommenter breaks
+//Creates input fields for update and create depeding on what entity is chosen
 function createInputFields() {
     var selectedCRUD = what1.value;
     console.log(selectedCRUD);
-    var inputs = "";
+    var inputs = "";   
     switch (selectedCRUD) {
         case "Company":
             console.log("We entered Company");
@@ -214,14 +216,15 @@ function createInputFields() {
     input2.innerHTML = inputs;
 }
 
+//POST and PUT method for all entities
 function postMethod() {
     var data = "";
-    var alertMessage = "";
-    var method = '';
+    var alertMessage;
+    var method;
     const chosenValue = what1.value;
     if (choice.value === "Create") {
         data = createData;
-        method = "POST"
+        method = 'POST';
         var alertMessage = "Entity has been created"
     } else {
         data = updateData;
@@ -229,14 +232,16 @@ function postMethod() {
         var alertMessage = "Entity has been updated"
     }
     console.log(data);
+    console.log(method);
+    console.log(alertMessage); 
     fetch(url.concat(chosenValue), {
         method: method,
         headers: { 'Content-Type': 'application/json; charset=utf-8' },
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
-    }).then((res) => res.json()).then((data) => {
-        console.log('data from post', data);
-        alertMessage(alertMessage);
-    }).catch(error => console.log(error));
+        body: JSON.stringify(data)}) // body data type must match "Content-Type" header
+        .then(res => res.json()).then((data) => {
+            console.log('data from post', data);
+            alert(alertMessage);
+        }).catch(error => console.log(error));
 }
 
 function createData() {
@@ -245,7 +250,7 @@ function createData() {
         case "Hobby":
             var hName = document.getElementById("hName");
             var hDesc = document.getElementById("hDesc");
-            var hData = { hName, hDesc }
+            var hData = { hName, hDesc };
             return hData;
         case "Company":
             var cName = document.getElementById("cName");
@@ -303,6 +308,7 @@ function updateData() {
             return pData;
     }
 }
+
 //************DELETE ********************************/
 var selectDelete = document.getElementById("selectDelete");
 var deleteID = document.getElementById("deleteID");
@@ -314,7 +320,14 @@ btnDelete.addEventListener('click', deleteEntity);
 function deleteEntity() {
     const selectedID = deleteID.value;
     const entityToDelete = selectDelete.value;
-    fetch(url + entityToDelete + "/Delete/" + selectedID, { method: 'DELETE' }).then(res => res.json()).then((data) => {
+    var deleteCall = {
+        method: "DELETE",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }
+    fetch(url + entityToDelete + "/Delete/" + selectedID, deleteCall).then(res => res.json()).then((data) => {
         console.log("Entity that has been deleted: " + data);
         alert("Entity has been deleted");
     }).catch(error => console.log(error));
