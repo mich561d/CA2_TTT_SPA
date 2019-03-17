@@ -148,7 +148,7 @@ function cityToHTML(json) {
 
 //**************CRUD ************************************* */
 
-const crud =  ["Create", "Update"]
+const crud = ["Create", "Update"];
 const whatCRUD = ["Company", "Person", "Hobby"];
 var choice = document.getElementById("selectCRUD");
 var what1 = document.getElementById("createSel");
@@ -159,19 +159,20 @@ choice.innerHTML = choicesToHTML(crud);
 what1.innerHTML = choicesToHTML(whatCRUD);
 what1.addEventListener("change", createInputFields);
 setInputField2();
-btnCU = addEventListener("click",postMethod);
+btnCU.addEventListener("click", postMethod);
 
 function setInputField2() {
     input2.innerHTML = createInputFields();
 }
 
-//Den er stuck med Company inputsene.. 
+// fjern return og udkommenter breaks
 function createInputFields() {
     var selectedCRUD = what1.value;
     console.log(selectedCRUD);
     var inputs = "";
-    switch (selectedCRUD) {   
+    switch (selectedCRUD) {
         case "Company":
+            console.log("We entered Company");
             inputs += "<input id=\"cID\" class=\"form-control\" type=\"number\" placeholder=\"ID (Only for update)\">";
             inputs += "<input id=\"cName\" class=\"form-control\" type=\"text\" placeholder=\"Company name..\">";
             inputs += "<input id=\"cDesc\" class=\"form-control\" type=\"text\" placeholder=\"Company description..\">";
@@ -182,7 +183,9 @@ function createInputFields() {
             inputs += "<input id=\"cPhone\" class=\"form-control\" type=\"number\" placeholder=\"Phone number\">";
             inputs += "<input id=\"cAddress\" class=\"form-control\" type=\"text\" placeholder=\"Address\">";
             return inputs;
+        //break;
         case "Person":
+            console.log("We entered Person");
             inputs += "<input id=\"pID\" type=\"number\" placeholder=\"ID (Only for update)\">";
             inputs += "P<input id=\"pFName\" type=\"text\"> <br>";
             inputs += "<input id=\"pLName\" type=\"text\"> <br>";
@@ -191,15 +194,22 @@ function createInputFields() {
             inputs += "<input id=\"pPhone\" type=\"number\"> <br>";
             inputs += "<input id=\"pAdress\" type=\"text\"> <br>";
             return inputs;
+        //break;
         case "Hobby":
-            inputs += "<input id=\"hID\" type=\"number\" placeholder=\"ID (Only for update)\">";             
+            console.log("We entered Hobby");
+            inputs += "<input id=\"hID\" type=\"number\" placeholder=\"ID (Only for update)\">";
             inputs += "H<input id=\"hName\" type=\"text\" placeholder=\"Write the name here..\">";
             inputs += "<input id=\"hDesc\" type=\"text\"> placeholder=\"Write the desc here..\"";
             return inputs;
+        //break;
         default:
+            console.log("We entered Default");
             alert("Something went wrong, please try again or reload page (F5)");
-            return "<input type=\"text\" disabled=\"disabled\">";
+            inputs += "<input type=\"text\" disabled=\"disabled\">";
+            return inputs;
+        //break;
     }
+    //input2.innerHTML = inputs;
 }
 
 function postMethod() {
@@ -207,12 +217,12 @@ function postMethod() {
     var alertMessage = "";
     var method = '';
     const chosenValue = what1.value;
-    if(choice.value === "Create") {
-        data = createData;
+    if (choice.value === "Create") {
+        data = createData();
         method = "POST"
         var alertMessage = "Entity has been created"
     } else {
-        data = updateData;
+        data = updateData();
         method = 'PUT'
         var alertMessage = "Entity has been updated"
     }
@@ -221,18 +231,18 @@ function postMethod() {
         headers: { 'Content-Type': 'application/json; charset=utf-8' },
         body: JSON.stringify(data) // body data type must match "Content-Type" header
     }).then((res) => res.json()).then((data) => {
-        console.log('data from post', data);        
+        console.log('data from post', data);
         alertMessage(alertMessage);
     }).catch(error => console.log(error));
 }
 
 function createData() {
     var selectedEntity = what1.value;
-    switch(selectedEntity) {
+    switch (selectedEntity) {
         case "Hobby":
             var hName = document.getElementById("hName");
             var hDesc = document.getElementById("hDesc");
-            var hData = {hName, hDesc}
+            var hData = { hName, hDesc }
             return hData;
         case "Company":
             var cName = document.getElementById("cName");
@@ -243,7 +253,7 @@ function createData() {
             var cEmail = document.getElementById("cEmail");
             var cPhone = document.getElementById("cPhone");
             var cAddress = document.getElementById("cAddress");
-            var cData = {cName, cDesc, cCVR, cNumOfEmp, cMarketValue, cEmail, cPhone, cAddress};
+            var cData = { cName, cDesc, cCVR, cNumOfEmp, cMarketValue, cEmail, cPhone, cAddress };
             return cData;
         case "Person":
             var pFName = document.getElementById("pFName");
@@ -252,19 +262,19 @@ function createData() {
             var pEmail = document.getElementById("pEmail");
             var pPhone = document.getElementById("pPhone");
             var pAddress = document.getElementById("pAddress");
-            var pData = {pFName, pLName, pHobby, pEmail, pPhone, pAddress}
+            var pData = { pFName, pLName, pHobby, pEmail, pPhone, pAddress }
             return pData;
     }
 }
 
 function updateData() {
     var selectedEntity = what1.value;
-    switch(selectedEntity) {
+    switch (selectedEntity) {
         case "Hobby":
             var hId;
             var hName = document.getElementById("hName");
             var hDesc = document.getElementById("hDesc");
-            var hData = {hId, hName, hDesc}
+            var hData = { hId, hName, hDesc }
             return hData;
         case "Company":
             var cId;
@@ -276,7 +286,7 @@ function updateData() {
             var cEmail = document.getElementById("cEmail");
             var cPhone = document.getElementById("cPhone");
             var cAddress = document.getElementById("cAddress");
-            var cData = {cName, cDesc, cCVR, cNumOfEmp, cMarketValue, cEmail, cPhone, cAddress};
+            var cData = { cName, cDesc, cCVR, cNumOfEmp, cMarketValue, cEmail, cPhone, cAddress };
             return cData;
         case "Person":
             var pId;
@@ -286,19 +296,20 @@ function updateData() {
             var pEmail = document.getElementById("pEmail");
             var pPhone = document.getElementById("pPhone");
             var pAddress = document.getElementById("pAddress");
-            var pData = {pFName, pLName, pHobby, pEmail, pPhone, pAddress}
+            var pData = { pFName, pLName, pHobby, pEmail, pPhone, pAddress }
             return pData;
     }
-}//************DELETE ********************************/
+}
+//************DELETE ********************************/
 var selectDelete = document.getElementById("selectDelete");
 var deleteID = document.getElementById("deleteID");
-var urlDelete = ""
+var urlDelete = "";
 selectDelete.innerHTML = choicesToHTML(whatCRUD);
 
 
 function deleteEntity() {
     const selectedID = deleteID.value;
-    const entityToDelete = selectDelete.value; 
+    const entityToDelete = selectDelete.value;
     fetch(url + entityToDelete + "/delete/id=" + selectedID, { method: 'DELETE' }).then(res => res.json()).then((data) => {
         getAllPersons();
     }).catch(error => console.log(error));
