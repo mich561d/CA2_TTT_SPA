@@ -13,11 +13,45 @@
     <lable>How do you wanna find it?</lable>
     <select id="how" class="mdb-select md-form"></select>
     <span id="input"><input type="text" disabled="disabled"></span>
-    <button id="fetchButton" type="button">get data</button>
+    <button id="fetchButton" type="button">Get data</button>
+    
+    <button id="clearData">Clear data</button>
   </header>
 
   <main id="data"></main>
 
+  <div class="form-group">
+
+  
+    <div id="createUpdate">
+      <h6>Create or Update</h6>
+      <label>Choose what you wanna do</label>
+      <select id="selectCRUD" class="form-group"></select>
+      <label>Choose Entity</labal>
+      <select id="createSel" class="mdb-select md-form"></select>
+      <span id="input2"></span>
+      <button id="btnCU" class="btn btn-success" type="button">Create/Update entity</button>
+    </div> 
+  
+    <div>
+      <h6>Delete entity</h6>
+      <label>What do you want to delete?</label>
+      <select id="selectDelete" class="mdb-select md-form"></select>
+      <input id="deleteID" class="form-control"></input>
+      <button type="button" class="btn btn-danger">Delete</button>
+    </div>
+  
+  <!-- 
+  <div id="createInputs">
+    <input type="text" id="hName" placeholder="Write name of new hobby here..." style="width: 20em" class="form-control" />
+    <input type="text" id="hDesc" placeholder="Write description of hobby here" style="width: 20em" class="form-control"/>
+    <button class="btn btn-default">Create hobby</button>
+  </div>
+  -->
+  
+
+
+  </div>
   <footer>
     &copy;2019 Created by The Turtle Troopers
   </footer>

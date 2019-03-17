@@ -28,3 +28,7 @@ footer {
   background: #252E39;
   padding: 2rem 1rem;
 }
+
+#createUpdate option {
+  width: 60%;
+}
