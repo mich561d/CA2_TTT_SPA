@@ -127,13 +127,19 @@ function jsonToHTML(json, whatValue) {
 }
 
 function companyToHTML(json) {
-    var html = json;
-    return html;
+    var html = json.map(company => "<li>First Name: " + company.name 
+        + " - CVR: " + company.cvr
+        + " - Email: " + company.email
+        + " - Description: " + company.description
+        + " - Number of employees: " + company.numEmployees
+        + " - Market value: " + company.marketValue   
+        +"</li>").join("");
+    return "<ul>" + html + "</ul>";
 }
 
 function personToHTML(json) {
-    var html = json;
-    return html;
+    var html = json.map(person => "<li>First Name: " + person.firstName + " - Last Name: " + person.lastName +  " - Email: " + person.email +"</li>").join("");
+    return "<ul>" + html + "</ul>";
 }
 
 function hobbyToHTML(json) {
