@@ -4,6 +4,10 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="style.css" rel="stylesheet" />
+  
+      <!-- CDN Polyfills which should allow you to use fetch (and promises) from IE and older browsers -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
 </head>
 
 <body>
@@ -13,22 +17,22 @@
     <lable>How do you wanna find it?</lable>
     <select id="how" class="mdb-select md-form"></select>
     <span id="input"><input type="text" disabled="disabled"></span>
-    <button id="fetchButton" type="button">Get data</button>
+    <button id="fetchButton" class="btn btn-primary" type="button">Get data</button>
     
-    <button id="clearData">Clear data</button>
+    <button id="clearData" class="btn btn-warning">Clear data</button>
   </header>
 
   <main id="data"></main>
 
   <div class="form-group">
 
-  
     <div id="createUpdate">
       <h6>Create or Update</h6>
-      <label>Choose what you wanna do</label>
-      <select id="selectCRUD" class="form-group"></select>
+      <label>Create or update?</label>
+      <select class="form-control" id="selectCRUD"></select>
       <label>Choose Entity</labal>
-      <select id="createSel" class="mdb-select md-form"></select>
+      <select class="form-control" id="createSel"></select>
+      <label>Type in data</label>
       <span id="input2"></span>
       <button id="btnCU" class="btn btn-success" type="button">Create/Update entity</button>
     </div> 
