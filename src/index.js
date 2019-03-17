@@ -159,7 +159,7 @@ choice.innerHTML = choicesToHTML(crud);
 what1.innerHTML = choicesToHTML(whatCRUD);
 what1.addEventListener("change", createInputFields);
 setInputField2();
-btnCU = addEventListener("click",postMethod);
+btnCU.addEventListener("click",postMethod);
 
 function setInputField2() {
     input2.innerHTML = createInputFields();
@@ -184,7 +184,7 @@ function createInputFields() {
             return inputs;
         case "Person":
             inputs += "<input id=\"pID\" type=\"number\" placeholder=\"ID (Only for update)\">";
-            inputs += "P<input id=\"pFName\" type=\"text\"> <br>";
+            inputs += "<input id=\"pFName\" type=\"text\"> <br>";
             inputs += "<input id=\"pLName\" type=\"text\"> <br>";
             inputs += "<input id=\"pHobby\" type=\"text\"> <br>";
             inputs += "<input id=\"pEmail\" type=\"text\"> <br>";
@@ -193,7 +193,7 @@ function createInputFields() {
             return inputs;
         case "Hobby":
             inputs += "<input id=\"hID\" type=\"number\" placeholder=\"ID (Only for update)\">";             
-            inputs += "H<input id=\"hName\" type=\"text\" placeholder=\"Write the name here..\">";
+            inputs += "<input id=\"hName\" type=\"text\" placeholder=\"Write the name here..\">";
             inputs += "<input id=\"hDesc\" type=\"text\"> placeholder=\"Write the desc here..\"";
             return inputs;
         default:
