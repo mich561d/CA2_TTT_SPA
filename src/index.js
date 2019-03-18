@@ -14,7 +14,7 @@ var how = document.getElementById("how");
 var input = document.getElementById("input");
 var fetchButton = document.getElementById("fetchButton");
 var dataDiv = document.getElementById("data");
-var clearData = document.getElementById("clearData");
+var clearDatabtn = document.getElementById("clearData");
 
 what.innerHTML = choicesToHTML(whatChoices);
 what.addEventListener("change", addChoicesToHow);
@@ -22,7 +22,7 @@ how.innerHTML = choicesToHTML(companyChoices);
 how.addEventListener("change", setInputField);
 setInputField();
 fetchButton.addEventListener("click", fetchData);
-clearData.addEventListener("click", clearData);
+clearDatabtn.addEventListener("click", clearData);
 
 function clearData() {
   dataDiv.innerHTML = "<h1>Data has been cleared</h1>";
@@ -111,10 +111,10 @@ function fetchData() {
   }
   fetch(newUrl)
     .then(res => {
-        if (!res.ok) {
-            throw Error(res.statusText);
-          }
-          return res.json();
+      if (!res.ok) {
+        throw Error(res.statusText);
+      }
+      return res.json();
     })
     .then(json => (dataDiv.innerHTML = jsonToHTML(json, whatValue)));
 }
@@ -269,10 +269,10 @@ function postMethod() {
     body: JSON.stringify(data)
   }) // body data type must match "Content-Type" header
     .then(res => {
-        if (!res.ok) {
-            throw Error(res.statusText);
-          }
-          return res.json();
+      if (!res.ok) {
+        throw Error(res.statusText);
+      }
+      return res.json();
     })
     .then(data => {
       console.log("data from post" + data);
@@ -371,14 +371,15 @@ function deleteEntity() {
     method: "DELETE",
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json"}
-    };
+      "Content-Type": "application/json"
+    }
+  };
   fetch(url + entityToDelete + "/Delete/" + selectedID, deleteCall)
     .then(res => {
-        if (!res.ok) {
-            throw Error(res.statusText);
-          }
-          return res.json();
+      if (!res.ok) {
+        throw Error(res.statusText);
+      }
+      return res.json();
     })
     .then(data => {
       console.log("Entity that has been deleted: " + data);
