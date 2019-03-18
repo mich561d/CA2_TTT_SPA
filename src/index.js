@@ -116,7 +116,8 @@ function fetchData() {
       }
       return res.json();
     })
-    .then(json => (dataDiv.innerHTML = jsonToHTML(json, whatValue)));
+    .then(json => (dataDiv.innerHTML = jsonToHTML(json, whatValue))).catch(error => alert(error));
+    
 }
 
 function jsonToHTML(json, whatValue) {
